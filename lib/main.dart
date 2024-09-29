@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:note_app/cubits/note/cubit/note_cubit.dart';
-import 'package:note_app/models/note_model.dart';
+import 'package:note_app/core/routing/app_router.dart';
+import 'package:note_app/core/routing/routes.dart';
+import 'package:note_app/add_note/models/note_model.dart';
 import 'package:note_app/simple_bloc_observer.dart';
-import 'package:note_app/views/note_view.dart';
-import 'package:note_app/views/widgets/constant.dart';
+import 'package:note_app/core/widgets/constant.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,20 +13,22 @@ void main() async {
   Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<NoteModel>(kNotesBox);
   Bloc.observer = SimpleBlocObserver();
-  runApp(const MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter});
+  final AppRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NoteCubit(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData.dark(),
-          home: NoteView()),
+    return MaterialApp(
+      onGenerateRoute: appRouter.genrateRoute,
+      initialRoute: Routes.addNote,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
     );
   }
 }

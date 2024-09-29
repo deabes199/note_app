@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/cubits/note/cubit/note_cubit.dart';
-import 'package:note_app/models/note_model.dart';
-import 'package:note_app/views/widgets/custom_app_bar.dart';
-import 'package:note_app/views/widgets/custom_text_field.dart';
+import 'package:note_app/show_tasks/logic/show_note_cubit.dart';
+import 'package:note_app/add_note/models/note_model.dart';
+import 'package:note_app/core/widgets/custom_app_bar.dart';
+import 'package:note_app/core/widgets/custom_text_field.dart';
 
 class EditNoteBody extends StatefulWidget {
   const EditNoteBody({super.key, required this.note});
@@ -21,7 +21,7 @@ class _EditNoteBodyState extends State<EditNoteBody> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           CustomAppBar(
@@ -29,12 +29,12 @@ class _EditNoteBodyState extends State<EditNoteBody> {
                 widget.note.title = title ?? widget.note.title;
                 widget.note.subTitle = subTitle ?? widget.note.subTitle;
                 widget.note.save();
-                context.read<NoteCubit>().fitchAllNotes();
+                context.read<ShowNoteCubit>().fitchAllNotes();
                 Navigator.of(context).pop();
               },
               title: 'Edit Notes',
               icon: Icons.check),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           CustomTextFeild(
@@ -42,7 +42,7 @@ class _EditNoteBodyState extends State<EditNoteBody> {
                 title = value;
               },
               hinttext: widget.note.title),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           CustomTextFeild(

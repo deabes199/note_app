@@ -2,14 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:note_app/views/widgets/constant.dart';
+import 'package:note_app/core/widgets/constant.dart';
 
 class CustomTextFeild extends StatelessWidget {
   const CustomTextFeild({
     super.key,
     required this.hinttext,
-     this.maxLins=1,
-    this.onSaved, this.onChanged,
+    this.maxLins = 1,
+    this.onSaved,
+    this.onChanged,
   });
   final String hinttext;
   final int maxLins;
@@ -19,9 +20,9 @@ class CustomTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: TextFormField(
-          onChanged:onChanged ,
+          onChanged: onChanged,
           validator: (value) {
             if (value?.isEmpty ?? true) {
               return 'Field is reqauird';
@@ -35,13 +36,13 @@ class CustomTextFeild extends StatelessWidget {
               hintText: hinttext,
               border: builBorder(),
               enabledBorder: builBorder(),
-              focusedBorder: builBorder(kPrimaryColor)),
+              focusedBorder: builBorder(Colors.blue)),
         ));
   }
 }
 
 OutlineInputBorder builBorder([color]) {
   return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(color: color ?? Colors.white));
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.grey));
 }

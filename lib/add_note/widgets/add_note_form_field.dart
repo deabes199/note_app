@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:note_app/cubits/add_note/add_note_cubit.dart';
-import 'package:note_app/models/note_model.dart';
-import 'package:note_app/views/widgets/color_list_view.dart';
-import 'package:note_app/views/widgets/custom_button.dart';
-import 'package:note_app/views/widgets/custom_text_field.dart';
-import 'package:note_app/views/widgets/format_date.dart';
+import 'package:note_app/add_note/logic/add_note_cubit.dart';
+import 'package:note_app/add_note/models/note_model.dart';
+import 'package:note_app/core/routing/routes.dart';
+import 'package:note_app/core/widgets/constant.dart';
+import 'package:note_app/core/widgets/custom_button.dart';
+import 'package:note_app/core/widgets/custom_text_field.dart';
+import 'package:note_app/core/widgets/format_date.dart';
 
-class NoteFromField extends StatefulWidget {
-  const NoteFromField({
+class AddNoteFromField extends StatefulWidget {
+  const AddNoteFromField({
     super.key,
   });
 
   @override
-  State<NoteFromField> createState() => _NoteFromFieldState();
+  State<AddNoteFromField> createState() => _AddNoteFromFieldState();
 }
 
-class _NoteFromFieldState extends State<NoteFromField> {
+class _AddNoteFromFieldState extends State<AddNoteFromField> {
   GlobalKey<FormState> globalKey = GlobalKey();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subTitle;
-
   @override
   Widget build(BuildContext context) {
     return Form(
       key: globalKey,
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           CustomTextFeild(
@@ -38,7 +37,7 @@ class _NoteFromFieldState extends State<NoteFromField> {
             },
             hinttext: 'Title',
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           CustomTextFeild(
@@ -46,18 +45,16 @@ class _NoteFromFieldState extends State<NoteFromField> {
               subTitle = value;
             },
             hinttext: 'content',
-            maxLins: 5,
+            maxLins: 6,
           ),
-            SizedBox(
-            height: 32,
-          ),
-          ColorListView(),
-          SizedBox(
-            height: 32,
+          const SizedBox(
+            height: 100,
           ),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
               return CustomButton(
+                color: Colors.blue,
+                title: 'Add',
                 isLoading: state is AddNoteLoading ? true : false,
                 onTap: () {
                   String formattedCurrentDate = dateFormat();
@@ -68,7 +65,7 @@ class _NoteFromFieldState extends State<NoteFromField> {
                         subTitle: subTitle!,
                         date: formattedCurrentDate,
                         color: Colors.blue.value);
-                    BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                    context.read<AddNoteCubit>().addNote(noteModel);
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
@@ -77,13 +74,18 @@ class _NoteFromFieldState extends State<NoteFromField> {
               );
             },
           ),
-          SizedBox(
-            height: 12,
+          const SizedBox(
+            height: 22,
+          ),
+          CustomButton(
+            color: Colors.red,
+            title: 'My Tasks',
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.showNote);
+            },
           )
         ],
       ),
     );
   }
 }
-
-
