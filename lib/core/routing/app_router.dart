@@ -5,8 +5,8 @@ import 'package:note_app/add_note/models/note_model.dart';
 import 'package:note_app/add_note/screens/add_note_screen.dart';
 import 'package:note_app/core/routing/routes.dart';
 import 'package:note_app/edit_note/screens/edit_note_screen.dart';
-import 'package:note_app/show_tasks/logic/show_note_cubit.dart';
-import 'package:note_app/show_tasks/screen/show_notes_screen.dart';
+import 'package:note_app/show_notes/logic/show_note_cubit.dart';
+import 'package:note_app/show_notes/screen/show_notes_screen.dart';
 
 class AppRouter {
   Route? genrateRoute(RouteSettings settings) {

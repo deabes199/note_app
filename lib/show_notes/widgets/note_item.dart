@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/core/routing/routes.dart';
-import 'package:note_app/show_tasks/logic/show_note_cubit.dart';
+import 'package:note_app/show_notes/logic/show_note_cubit.dart';
 import 'package:note_app/add_note/models/note_model.dart';
 
 class NoteItem extends StatelessWidget {
