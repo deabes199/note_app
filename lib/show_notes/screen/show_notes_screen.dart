@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/core/widgets/custom_app_bar.dart';
 import 'package:note_app/show_notes/widgets/note_list_view.dart';
 
 class ShowNotesScreen extends StatelessWidget {
