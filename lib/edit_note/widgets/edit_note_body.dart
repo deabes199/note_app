@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/core/routing/routes.dart';
 import 'package:note_app/show_notes/logic/show_note_cubit.dart';
 import 'package:note_app/add_note/models/note_model.dart';
 import 'package:note_app/core/widgets/custom_app_bar.dart';
@@ -14,7 +16,16 @@ class EditNoteBody extends StatefulWidget {
 }
 
 class _EditNoteBodyState extends State<EditNoteBody> {
+  TextEditingController editTitleController = TextEditingController();
+  TextEditingController editContentController = TextEditingController();
   String? title, subTitle;
+  @override
+  void dispose() {
+    super.dispose();
+    editContentController.dispose();
+    editTitleController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +41,7 @@ class _EditNoteBodyState extends State<EditNoteBody> {
                 widget.note.subTitle = subTitle ?? widget.note.subTitle;
                 widget.note.save();
                 context.read<ShowNoteCubit>().fitchAllNotes();
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(Routes.showNote);
               },
               title: 'Edit Notes',
               icon: Icons.check),
@@ -38,6 +49,7 @@ class _EditNoteBodyState extends State<EditNoteBody> {
             height: 50,
           ),
           CustomTextFeild(
+              textEditingController: editTitleController,
               onChanged: (value) {
                 title = value;
               },
@@ -46,6 +58,7 @@ class _EditNoteBodyState extends State<EditNoteBody> {
             height: 16,
           ),
           CustomTextFeild(
+            textEditingController: editContentController,
             onChanged: (value) {
               subTitle = value;
             },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/add_note/logic/add_note_cubit.dart';
 import 'package:note_app/add_note/models/note_model.dart';
 import 'package:note_app/core/routing/routes.dart';
-import 'package:note_app/core/widgets/constant.dart';
 import 'package:note_app/core/widgets/custom_button.dart';
 import 'package:note_app/core/widgets/custom_text_field.dart';
 import 'package:note_app/core/widgets/format_date.dart';
@@ -19,9 +19,19 @@ class AddNoteFromField extends StatefulWidget {
 
 class _AddNoteFromFieldState extends State<AddNoteFromField> {
   GlobalKey<FormState> globalKey = GlobalKey();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subTitle;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,6 +42,7 @@ class _AddNoteFromFieldState extends State<AddNoteFromField> {
             height: 24,
           ),
           CustomTextFeild(
+            textEditingController: titleController,
             onSaved: (value) {
               title = value;
             },
@@ -41,6 +52,7 @@ class _AddNoteFromFieldState extends State<AddNoteFromField> {
             height: 24,
           ),
           CustomTextFeild(
+            textEditingController: contentController,
             onSaved: (value) {
               subTitle = value;
             },
@@ -66,9 +78,10 @@ class _AddNoteFromFieldState extends State<AddNoteFromField> {
                         date: formattedCurrentDate,
                         color: Colors.blue.value);
                     context.read<AddNoteCubit>().addNote(noteModel);
+                    titleController.clear();
+                    contentController.clear();
                   } else {
                     autovalidateMode = AutovalidateMode.always;
-                    setState(() {});
                   }
                 },
               );
@@ -79,9 +92,9 @@ class _AddNoteFromFieldState extends State<AddNoteFromField> {
           ),
           CustomButton(
             color: Colors.red,
-            title: 'My Tasks',
+            title: 'My Notes',
             onTap: () {
-              Navigator.of(context).pushNamed(Routes.showNote);
+              Navigator.of(context).pushReplacementNamed(Routes.showNote);
             },
           )
         ],

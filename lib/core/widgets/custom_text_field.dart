@@ -2,26 +2,26 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:note_app/core/widgets/constant.dart';
-
 class CustomTextFeild extends StatelessWidget {
   const CustomTextFeild({
     super.key,
     required this.hinttext,
     this.maxLins = 1,
     this.onSaved,
-    this.onChanged,
+    this.onChanged, required this.textEditingController,
   });
   final String hinttext;
   final int maxLins;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
+  final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: TextFormField(
+          controller: textEditingController,
           onChanged: onChanged,
           validator: (value) {
             if (value?.isEmpty ?? true) {
