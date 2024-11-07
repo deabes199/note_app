@@ -10,7 +10,7 @@ class ShowNotesScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             children: [
               Row(children: [
@@ -18,10 +18,10 @@ class ShowNotesScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back)),
-                    Text('Show Notes',style: TextStyle(fontSize: 30),),
+                    icon: const Icon(Icons.arrow_back)),
+                    const Text('Show Notes',style: TextStyle(fontSize: 30),),
               ]),
-              NoteListView(),
+              const NoteListView(),
             ],
           ),
         ),

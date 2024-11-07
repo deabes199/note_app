@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/core/routing/routes.dart';
 import 'package:note_app/show_notes/logic/show_note_cubit.dart';
